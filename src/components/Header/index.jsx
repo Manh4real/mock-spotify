@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import clsx from "clsx";
 
-import "./Header.scss";
+// components
 import SearchBar from "components/SearchBar";
 import Navigator from "./Navigator";
 import AccountButton from "./AccountButton";
+
+// styles
+import "./Header.scss";
 
 function Header() {
   const [isSticked, setIsSticked] = useState(window.scrollY >= 50);
@@ -19,7 +23,11 @@ function Header() {
   }, []);
 
   return (
-    <div className={"fxd top-header" + (isSticked ? " active" : "")}>
+    <div
+      className={clsx("fxd top-header", {
+        active: isSticked,
+      })}
+    >
       <div style={{ display: "flex" }}>
         <Navigator />
         <SearchBar />

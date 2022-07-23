@@ -2,12 +2,9 @@ import React, { useContext } from "react";
 
 import { Pause, Play } from "icons";
 import { Player } from "App";
-// import { TrackController } from "./Controller";
 
 function PlayController({ onPlay, onPause }, ref) {
   const { isPlaying, setIsPlaying } = useContext(Player);
-
-  // const [pause, setPause] = useState(!isPlaying);
 
   const handleClick = () => {
     if (!isPlaying) {

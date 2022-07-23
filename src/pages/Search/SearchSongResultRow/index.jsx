@@ -1,9 +1,14 @@
-import ExplicitTag from "components/ExplicitTag";
-import { formatMinute } from "components/TrackPlayer/TrackProgress";
-import { Heart, Play as PlayIcon, ThreeDots } from "icons";
 import React from "react";
 import { Link } from "react-router-dom";
 
+// icons
+import { Heart, Play as PlayIcon, ThreeDots } from "icons";
+import ExplicitTag from "components/ExplicitTag";
+
+// utils
+import { formatMinute } from "utils";
+
+// styles
 import styles from "./SearchSongResult.module.scss";
 
 function SearchSongResultRow({ track }) {

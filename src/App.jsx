@@ -1,18 +1,21 @@
 import React, { useMemo, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import "./App.scss";
 
+// components
 import Sidebar from "components/Sidebar";
 import TrackPlayer from "components/TrackPlayer";
 import Header from "components/Header";
 
-import { Home, Playlist, Search } from "pages";
-import AlbumPlaylist from "pages/AlbumPlaylist";
+// pages
+import { Home, Playlist, Search, AlbumPlaylist } from "pages";
+
+// styles
+import "./App.scss";
 
 // context
 export const Player = React.createContext({});
+
 function App() {
-  // const [playingId, setPlayingId] = useState("");
   const [playingAlbumId, setPlayingAlbumId] = useState("");
   const [playingSong, setPlayingSong] = useState({ id: null, src: null });
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,7 +31,6 @@ function App() {
       playingSong,
       setPlayingSong,
       playingAlbumId,
-      setPlayingAlbumId,
       isPlaying,
       setIsPlaying,
       setPlayingSongInfo,
@@ -44,12 +46,12 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home />} />
           <Route path="/playlist">
             <Route index element={<Playlist />} />
             <Route path=":id" element={<AlbumPlaylist />} />
           </Route>
-          <Route path="/search" element={<Search />}></Route>
+          <Route path="/search" element={<Search />} />
         </Routes>
       </div>
     </Player.Provider>

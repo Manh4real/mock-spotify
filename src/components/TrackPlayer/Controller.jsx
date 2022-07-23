@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
+// icons
 import { Next, Prev, Random, Repeat } from "icons";
+
+// components
 import PlayController from "./PlayController";
-import { ALBUMS } from "constants";
-import { Player } from "App";
 import TrackProgress from "./TrackProgress";
 
-export const TrackController = React.createContext(null);
+// constants
+import { ALBUMS } from "constants";
 
+// context
+import { Player } from "App";
+
+// variables
+const SONGS = ALBUMS[0].items;
 let currentIndex = 0;
 
-const SONGS = ALBUMS[0].items;
-
 function Controller({ visible = true, renderAudio }) {
-  const { isPlaying, setIsPlaying, playingSong, setPlayingSong } =
+  const { isPlaying, setIsPlaying, playingSong, setPlayingSongInfo } =
     useContext(Player);
 
   const [isError, setIsError] = useState(false);
@@ -64,19 +69,22 @@ function Controller({ visible = true, renderAudio }) {
     if (currentIndex >= SONGS.length - 1) {
       currentIndex = -1;
     }
-    setPlayingSong({
-      id: SONGS[++currentIndex].id,
-      src: SONGS[currentIndex].url,
-    });
+    setPlayingSongInfo(
+      SONGS[++currentIndex].id,
+      SONGS[currentIndex].url,
+      ALBUMS[0].id
+    );
 
     trackProgressRef.current.init(audioRef.current);
   }
   function backToPrevSong() {
     if (currentIndex < 1) currentIndex = 1;
-    setPlayingSong({
-      id: SONGS[--currentIndex].id,
-      src: SONGS[currentIndex].url,
-    });
+
+    setPlayingSongInfo(
+      SONGS[--currentIndex].id,
+      SONGS[currentIndex].url,
+      ALBUMS[0].id
+    );
 
     trackProgressRef.current.init(audioRef.current);
   }
@@ -110,7 +118,6 @@ function Controller({ visible = true, renderAudio }) {
 
   //
   useEffect(() => {
-    // const thisSong = SONGS.find(({ id }) => id === playingSongId);
     if (playingSong.id) {
       // find available song
       const thisSongIndex = SONGS.findIndex(({ id }) => id === playingSong.id);
@@ -118,9 +125,11 @@ function Controller({ visible = true, renderAudio }) {
       if (thisSongIndex !== -1) {
         console.log("current song order: ", currentIndex);
         currentIndex = thisSongIndex;
-      } else setPlayingSong({ id: "", src: "" });
+      } else {
+        setPlayingSongInfo("", "", "");
+      }
     }
-  }, [playingSong.id, setPlayingSong]);
+  }, [playingSong.id, setPlayingSongInfo]);
 
   //
   useEffect(() => {
@@ -134,6 +143,7 @@ function Controller({ visible = true, renderAudio }) {
     console.log({ isPlaying });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, playingSong.src]);
+
   //
   useEffect(() => {
     const handleKeyUp = (e) => {

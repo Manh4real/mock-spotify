@@ -1,2 +1,3 @@
 This project is of creating a mock Spotify web app
-# mock-spotify
+
+# mock-spotify using create-react-app

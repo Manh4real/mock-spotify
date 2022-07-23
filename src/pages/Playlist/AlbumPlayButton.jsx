@@ -1,6 +1,12 @@
-import { Player } from "App";
 import React, { useContext } from "react";
 
+// components
+import { Player } from "App";
+
+// icons
+import { Play as PlayIcon } from "icons";
+
+// constants
 import { ALBUMS } from "constants";
 
 function AlbumPlayButton({ albumId }) {
@@ -28,14 +34,7 @@ function AlbumPlayButton({ albumId }) {
         </div>
       ) : (
         <div className="btn pllst-pl-btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 20 24"
-          >
-            <path d="M3 22v-20l18 10-18 10z"></path>
-          </svg>
+          <PlayIcon />
         </div>
       )}
     </div>

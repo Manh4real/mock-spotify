@@ -70,6 +70,47 @@ a {
   white-space: nowrap;
 }
 
+.skeleton {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+
+    animation: skeleton-animate 0.8s linear infinite;
+  }
+}
+@keyframes skeleton-animate {
+  0% {
+    transform: translateX(-100%);
+  }
+  25% {
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+///
+
 .home-pg-bl,
 .album-pg-bl,
 .search-pg-bl {

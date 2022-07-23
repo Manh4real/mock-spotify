@@ -1,13 +1,23 @@
-import { Player } from "App";
-import { ALBUMS } from "constants";
-import { Heart } from "icons";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
+// context
+import { Player } from "App";
+
+// icons
+import { Heart } from "icons";
+
+// components
 import Controller from "./Controller";
 
+// styles
 import "./TrackPlayer.scss";
 
+// constants
+import { ALBUMS } from "constants";
+
 const SONGS = ALBUMS[0].items;
+
 function TrackPlayer() {
   const { playingSong } = useContext(Player);
 

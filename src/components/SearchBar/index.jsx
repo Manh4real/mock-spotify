@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+
+// icons
 import { Search as SearchIcon } from "icons";
 
 function SearchBar() {

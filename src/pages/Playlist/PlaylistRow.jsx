@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
-import clsx from "clsx";
-import { Player } from "App";
-import { Heart, ThreeDots } from "icons";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
+
+// context
+import { Player } from "App";
+
+// icons
+import { Heart, Pause as PauseIcon, Play as PlayIcon, ThreeDots } from "icons";
+import ExplicitTag from "components/ExplicitTag";
 
 function PlaylistRow({
   explicit = false,
@@ -23,7 +28,6 @@ function PlaylistRow({
     if (songId === playingSong.id) {
       setIsPlaying((prev) => !prev);
     } else {
-      // setPlayingSong({ id: songId, src: songUrl });
       setPlayingSongInfo(songId, songUrl, albumId);
       setIsPlaying(true);
     }
@@ -43,42 +47,10 @@ function PlaylistRow({
             {i + 1}
           </span>
           <span className="btn play-btn">
-            <svg
-              className="play-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 20 24"
-            >
-              <path d="M3 22v-20l18 10-18 10z"></path>
-            </svg>
+            <PlayIcon />
           </span>
           <span className="btn sng-pause-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="13.5"
-              viewBox="0 0 18 24"
-            >
-              <rect
-                width="7"
-                height="24"
-                rx="0"
-                ry="0"
-                transform="matrix(1 0 0 1.236824 12.5 0)"
-                stroke="none"
-                strokeWidth="0"
-              />
-              <rect
-                width="7"
-                height="24"
-                rx="0"
-                ry="0"
-                transform="matrix(1 0 0 1.236824 0 0)"
-                stroke="none"
-                strokeWidth="0"
-              />
-            </svg>
+            <PauseIcon />
           </span>
         </div>
         <div
@@ -96,24 +68,7 @@ function PlaylistRow({
               gap: "8px",
             }}
           >
-            {explicit && (
-              <span
-                style={{
-                  display: "inline-flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "#a3a1a1",
-                  color: "#111",
-                  borderRadius: "2px",
-                  width: 15,
-                  height: 15,
-                  fontSize: 9,
-                  fontWeight: "bold",
-                }}
-              >
-                E
-              </span>
-            )}
+            {explicit && <ExplicitTag />}
             {typeof artists === "object" ? (
               artists.map((artist, i) => (
                 <a
@@ -126,7 +81,7 @@ function PlaylistRow({
                 </a>
               ))
             ) : (
-              <Link to={i} href={"/artist"} className="song-artists">
+              <Link to="/artist" className="song-artists">
                 {artists}
               </Link>
             )}

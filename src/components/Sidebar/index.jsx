@@ -1,8 +1,11 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import "./Sidebar.scss";
+// icons
 import { Book, Home as HomeIcon, Logo, Search as SearchIcon } from "icons";
+
+// styles
+import "./Sidebar.scss";
 
 function Sidebar() {
   return (

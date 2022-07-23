@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// icons
+import { Play as PlayIcon } from "icons";
+
 function PlaylistBlock({ j = 0 }) {
   return (
     <div className="pllst-ctn">
@@ -24,14 +27,7 @@ function PlaylistBlock({ j = 0 }) {
           <div className="line"></div>
         </div>
         <div className="btn pllst-pl-btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 20 24"
-          >
-            <path d="M3 22v-20l18 10-18 10z"></path>
-          </svg>
+          <PlayIcon />
         </div>
       </div>
     </div>

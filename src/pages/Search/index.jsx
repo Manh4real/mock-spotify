@@ -1,11 +1,16 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import DefaultContent from "./DefaultContent";
 
-import "./Search.scss";
-import VBox from "components/VBox";
-import { search } from "api";
+// components
 import SearchSongResultRow from "./SearchSongResultRow";
+import DefaultContent from "./DefaultContent";
+import VBox from "components/VBox";
+
+// styles
+import "./Search.scss";
+
+// api
+import { search } from "api";
 
 function Search() {
   const [searchParams] = useSearchParams();

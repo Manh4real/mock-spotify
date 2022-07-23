@@ -1,7 +1,11 @@
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
+import clsx from "clsx";
 
+// icons
+import { LeftArrow, RightArrow } from "icons";
+
+// constants
 const SESSION_BROWSED_HISTORY = "myMockSpotify_browsedHistory";
 
 function Navigator() {
@@ -63,14 +67,7 @@ function Navigator() {
         disabled={history.current <= 0}
         onClick={handleBack}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-        </svg>
+        <LeftArrow />
       </button>
       <button
         className={clsx("right-arrow arrow", {
@@ -79,14 +76,7 @@ function Navigator() {
         disabled={history.current === history.paths.length - 1}
         onClick={handleNext}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-        </svg>
+        <RightArrow />
       </button>
     </div>
   );

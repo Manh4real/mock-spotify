@@ -1,6 +1,9 @@
-import clsx from "clsx";
 import React, { useState } from "react";
+import clsx from "clsx";
 import { Link } from "react-router-dom";
+
+// icons
+import { DownArrow, ShareIcon } from "icons";
 
 function AccountButton() {
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -23,14 +26,7 @@ function AccountButton() {
         ></div>
         <div className="usr-nme">manh4L</div>
         <div className="down-arrow">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M6 0l12 12-12 12z" />
-          </svg>
+          <DownArrow />
         </div>
       </div>
 
@@ -39,15 +35,7 @@ function AccountButton() {
           <li>
             <Link to="/">Account</Link>
             <span className="icon share-icon">
-              <svg
-                width="24"
-                height="24"
-                xmlns="http://www.w3.org/2000/svg"
-                fillRule="evenodd"
-                clipRule="evenodd"
-              >
-                <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
-              </svg>
+              <ShareIcon />
             </span>
           </li>
           <li>

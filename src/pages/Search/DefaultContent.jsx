@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// icons
+import { LeftArrow, Play as PlayIcon, RightArrow } from "icons";
+
 function DefaultContent() {
   return (
     <div>
@@ -57,15 +60,7 @@ function DefaultContent() {
                   <div className="line"></div>
                 </div>
                 <div className="btn pllst-pl-btn">
-                  <svg
-                    className="play-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 20 24"
-                  >
-                    <path d="M3 22v-20l18 10-18 10z"></path>
-                  </svg>
+                  <PlayIcon />
                 </div>
               </div>
             </div>
@@ -106,15 +101,7 @@ function DefaultContent() {
                   <div className="line"></div>
                 </div>
                 <div className="btn pllst-pl-btn">
-                  <svg
-                    className="play-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 20 24"
-                  >
-                    <path d="M3 22v-20l18 10-18 10z"></path>
-                  </svg>
+                  <PlayIcon />
                 </div>
               </div>
             </div>
@@ -155,15 +142,7 @@ function DefaultContent() {
                   <div className="line"></div>
                 </div>
                 <div className="btn pllst-pl-btn">
-                  <svg
-                    className="play-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 20 24"
-                  >
-                    <path d="M3 22v-20l18 10-18 10z"></path>
-                  </svg>
+                  <PlayIcon />
                 </div>
               </div>
             </div>
@@ -177,14 +156,7 @@ function DefaultContent() {
         </div>
         <div style={{ position: "relative" }}>
           <button className="arrow left-arrow" data-i="-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"></path>
-            </svg>
+            <LeftArrow />
           </button>
           <div style={{ overflowX: "hidden" }}>
             <div className="grid tp-gnr">
@@ -216,14 +188,7 @@ function DefaultContent() {
             </div>
           </div>
           <button className="arrow right-arrow" data-i="1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"></path>
-            </svg>
+            <RightArrow />
           </button>
         </div>
       </div>

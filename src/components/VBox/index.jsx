@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+// icons
+import { Play as PlayIcon } from "icons";
+
 function VBox({ type, img, title, href = "/", children }) {
   const navigate = useNavigate();
 
@@ -34,15 +37,7 @@ function VBox({ type, img, title, href = "/", children }) {
           <div className="line"></div>
         </div>
         <div className="btn pllst-pl-btn">
-          <svg
-            className="play-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 20 24"
-          >
-            <path d="M3 22v-20l18 10-18 10z"></path>
-          </svg>
+          <PlayIcon />
         </div>
       </button>
     </div>

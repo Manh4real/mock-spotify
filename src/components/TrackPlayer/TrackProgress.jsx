@@ -8,6 +8,9 @@ import React, {
 } from "react";
 import clsx from "clsx";
 
+// utils
+import { formatMinute } from "utils";
+
 function TrackProgress({ getCurrentSongTime, setCurrentSongTime }, ref) {
   const [time, setTime] = useState(getCurrentSongTime() || 0);
   const [progress, setProgress] = useState(0);
@@ -24,9 +27,7 @@ function TrackProgress({ getCurrentSongTime, setCurrentSongTime }, ref) {
 
     let offset = mouseX - tracktorLeft;
 
-    if (offset < 0) {
-      offset = 0;
-    }
+    if (offset < 0) offset = 0;
     if (offset > TRACKTOR_LENGTH) offset = TRACKTOR_LENGTH;
 
     setCurrentSongTime((offset * duration) / TRACKTOR_LENGTH);
@@ -38,19 +39,17 @@ function TrackProgress({ getCurrentSongTime, setCurrentSongTime }, ref) {
     setSongVariables: (song) => {
       setDuration(song.duration);
     },
-    init: (song) => {
+    init: () => {
       setProgress(0);
       setCurrentSongTime(0);
-      // setDuration(song.duration);
     },
-    updateSongTime: (song) => {
+    updateSongTime: () => {
       if (!isMouseDown) {
         const currentTime = getCurrentSongTime();
         setProgress((currentTime / duration) * 100);
         setTime(currentTime);
       }
     },
-
     isMouseDown,
   }));
 
@@ -71,12 +70,11 @@ function TrackProgress({ getCurrentSongTime, setCurrentSongTime }, ref) {
 
       let offset = mouseX - tracktorLeft;
 
-      if (offset < 0) {
-        offset = 0;
-      }
+      if (offset < 0) offset = 0;
       if (offset > TRACKTOR_LENGTH) offset = TRACKTOR_LENGTH;
 
       newTime = (offset * duration) / TRACKTOR_LENGTH;
+
       setProgress((offset / TRACKTOR_LENGTH) * 100);
       setTime(newTime);
     };
@@ -118,14 +116,3 @@ function TrackProgress({ getCurrentSongTime, setCurrentSongTime }, ref) {
 }
 
 export default memo(forwardRef(TrackProgress));
-
-export function formatMinute(s) {
-  let minutes = Math.trunc(s / 60);
-  let seconds = Math.trunc(s % 60);
-
-  return minutes + ": " + padStart(seconds);
-}
-
-function padStart(n) {
-  return n >= 10 ? n : "0" + n;
-}

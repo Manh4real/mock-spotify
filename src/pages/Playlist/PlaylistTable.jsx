@@ -1,6 +1,10 @@
 import React, { memo, useState } from "react";
-import { ALBUMS } from "constants";
+
+// components
 import PlaylistRow from "./PlaylistRow";
+
+// constants
+import { ALBUMS } from "constants";
 
 const SONGS = ALBUMS[0].items;
 
@@ -11,25 +15,21 @@ function PlaylistTable() {
     setSongs(SONGS);
   }, []);
 
-  return (
-    <>
-      {songs.map((song, i) => {
-        return (
-          <PlaylistRow
-            key={i}
-            songId={song.id}
-            songUrl={song.url}
-            albumId={ALBUMS[0].id}
-            songName={song.songName}
-            albumName={song.album.albumName}
-            artists={song.artists}
-            duration={song.duration}
-            i={i}
-          />
-        );
-      })}
-    </>
-  );
+  return songs.map((song, i) => {
+    return (
+      <PlaylistRow
+        key={i}
+        songId={song.id}
+        songUrl={song.url}
+        albumId={ALBUMS[0].id}
+        songName={song.songName}
+        albumName={song.album.albumName}
+        artists={song.artists}
+        duration={song.duration}
+        i={i}
+      />
+    );
+  });
 }
 
 export default memo(PlaylistTable);
