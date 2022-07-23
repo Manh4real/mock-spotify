@@ -1,0 +1,137 @@
+.fxd.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height);
+  /* max-width: 1347.2px; */
+  width: 100%;
+  padding: 0 10px;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: var(--side-bar-width);
+  width: calc(100% - var(--side-bar-width));
+  z-index: 1000;
+}
+.fxd.top-header.active {
+  background: #262f3e;
+  animation: animate 0.3s linear;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.top-header .bck-and-frth-arrows {
+  margin-left: 19px;
+  display: inline-flex;
+  align-items: center;
+}
+.arrow {
+  background: var(--darker-black);
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.arrow.right-arrow {
+  margin-left: 12px;
+}
+.bck-and-frth-arrows .arrow.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.arrow svg {
+  height: 15px;
+  width: 15px;
+}
+
+/* =========== */
+.search-inp-ctn {
+  margin-left: 20px;
+  display: inline-block;
+  width: 364px;
+  position: relative;
+}
+.search-inp-ctn input {
+  padding: 10px;
+  height: 40px;
+  width: 100%;
+  border-radius: 50px;
+  border: none;
+  padding-inline-start: 40px;
+}
+.search-inp-ctn input::placeholder {
+  color: #2c2c2c8c;
+  font-weight: 500;
+}
+.search-btn {
+  background: transparent;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-40%);
+  cursor: pointer;
+
+  svg {
+    fill: #111;
+  }
+}
+
+/* =========== */
+.usr-accnt-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--darker-black);
+  width: calc(100% + 20px);
+  position: relative;
+  left: -20px;
+  padding: 3px;
+  border-radius: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+.usr-accnt-info:hover,
+.usr-accnt-info.active {
+  background: #282828;
+}
+.usr-accnt-info .image {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.usr-accnt-info .usr-nme {
+  font-weight: bold;
+  font-size: 13px;
+}
+.usr-accnt-info .down-arrow {
+  transform: rotate(90deg);
+}
+.usr-accnt-info .down-arrow svg {
+  height: 10px;
+}
+.usr-accnt-info__container {
+  position: relative;
+  right: 20px;
+}
+.usr-stt-drop-down {
+  right: 0;
+  width: 175px;
+  box-shadow: 3px 5px 15px 0 rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+.usr-accnt-info.active + .usr-stt-drop-down {
+  display: block;
+}
+.usr-stt-drop-down .log-out-ctn {
+  border-top: 2px solid #333;
+}
