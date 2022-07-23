@@ -46,7 +46,7 @@ function DefaultContent() {
                 ></div>
                 <div className="artcl-title">
                   <h2 className="artcl-nme">Motivational Podcasts</h2>
-                  <Link to="/artists/" replace={true} className="author">
+                  <Link to="/artists/" className="author">
                     Tolu Dave
                   </Link>
                 </div>
@@ -95,7 +95,7 @@ function DefaultContent() {
                 ></div>
                 <div className="artcl-title">
                   <h2 className="artcl-nme">Motivational Podcasts</h2>
-                  <Link to="/artists/" replace={true} className="author">
+                  <Link to="/artists/" className="author">
                     Tolu Dave
                   </Link>
                 </div>
@@ -144,7 +144,7 @@ function DefaultContent() {
                 ></div>
                 <div className="artcl-title">
                   <h2 className="artcl-nme">Motivational Podcasts</h2>
-                  <Link to="/artists/" replace={true} className="author">
+                  <Link to="/artists/" className="author">
                     Tolu Dave
                   </Link>
                 </div>

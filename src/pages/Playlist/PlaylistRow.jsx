@@ -16,8 +16,6 @@ function PlaylistRow({
   imageSrc = `./images/cover${Math.ceil(Math.random() * 2)}.jpg`,
   i,
 }) {
-  // console.log("??");
-
   const { isPlaying, playingSong, setIsPlaying, setPlayingSongInfo } =
     useContext(Player);
 
@@ -128,12 +126,7 @@ function PlaylistRow({
                 </a>
               ))
             ) : (
-              <Link
-                to={i}
-                replace={true}
-                href={"/artist"}
-                className="song-artists"
-              >
+              <Link to={i} href={"/artist"} className="song-artists">
                 {artists}
               </Link>
             )}

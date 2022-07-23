@@ -2,28 +2,41 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 
+const SESSION_BROWSED_HISTORY = "myMockSpotify_browsedHistory";
+
 function Navigator() {
+  const storedHistory = JSON.parse(
+    sessionStorage.getItem(SESSION_BROWSED_HISTORY)
+  );
+
   const navigate = useNavigate();
   const navigationType = useNavigationType();
   const location = useLocation();
-  const [history, setHistory] = useState({
-    paths: [location.pathname + location.search],
-    current: 0,
-  });
+
+  const [history, setHistory] = useState(
+    storedHistory || {
+      paths: [location.pathname + location.search],
+      current: 0,
+    }
+  );
 
   const handleNext = () => {
-    if (history.current >= history.paths.length - 1) return;
+    if (history.current >= history.paths.length - 1) {
+      return;
+    }
 
     setHistory(({ paths, current }) => ({ paths, current: current + 1 }));
-    navigate(history.paths[history.current + 1], { replace: true });
+    navigate(1, { replace: true });
   };
   const handleBack = () => {
-    if (history.current <= 0) return;
+    if (history.current <= 0) {
+      return;
+    }
+
     setHistory(({ paths, current }) => ({ paths, current: current - 1 }));
-    navigate(history.paths[history.current - 1], { replace: true });
+    navigate(-1, { replace: true });
   };
 
-  console.log(history);
   useEffect(() => {
     const currentPath = location.pathname + location.search;
 
@@ -35,9 +48,11 @@ function Navigator() {
         };
       });
     }
-
-    console.log("damned.");
   }, [location.pathname, location.search, navigationType]);
+
+  useEffect(() => {
+    sessionStorage.setItem(SESSION_BROWSED_HISTORY, JSON.stringify(history));
+  }, [history]);
 
   return (
     <div className="bck-and-frth-arrows">

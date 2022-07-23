@@ -7,7 +7,6 @@ import { Player } from "App";
 function PlayController({ onPlay, onPause }, ref) {
   const { isPlaying, setIsPlaying } = useContext(Player);
 
-  // console.log(isPlaying);
   // const [pause, setPause] = useState(!isPlaying);
 
   const handleClick = () => {

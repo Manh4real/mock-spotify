@@ -18,7 +18,6 @@ function AlbumPlaylist() {
       const data = await getAlbum(id);
 
       setAlbum(data);
-      console.log(data);
     };
 
     fetchAlbum();

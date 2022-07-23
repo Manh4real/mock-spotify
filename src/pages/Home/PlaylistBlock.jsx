@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function PlaylistBlock({ j = 0 }) {
   return (
     <div className="pllst-ctn">
-      <Link replace={true} to="/playlist" className="pllst">
+      <Link to="/playlist" className="pllst">
         <div
           className="image"
           style={{

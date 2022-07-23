@@ -24,9 +24,7 @@ function SearchSongResultRow({ track }) {
           {track.explicit && <ExplicitTag />}
           {track.artists.map((artist, i) => (
             <span key={i}>
-              <Link to={"/artists/" + artist.id} replace={true}>
-                {artist.name}
-              </Link>
+              <Link to={"/artists/" + artist.id}>{artist.name}</Link>
               {i < track.artists.length - 1 ? "," : ""}
             </span>
           ))}

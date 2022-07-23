@@ -17,7 +17,7 @@ function Sidebar() {
           <Logo />
         </Link>
         <div className="main-menu-content">
-          <NavLink to="/" replace={true} className="mn-inl-bl mn-item home">
+          <NavLink to="/" className="mn-inl-bl mn-item home">
             {({ isActive }) => {
               return (
                 <>
@@ -26,11 +26,7 @@ function Sidebar() {
               );
             }}
           </NavLink>
-          <NavLink
-            to="/search"
-            replace={true}
-            className="mn-inl-bl mn-item search"
-          >
+          <NavLink to="/search" className="mn-inl-bl mn-item search">
             {({ isActive }) => {
               return (
                 <>
@@ -39,11 +35,7 @@ function Sidebar() {
               );
             }}
           </NavLink>
-          <NavLink
-            to="/library"
-            replace={true}
-            className="mn-inl-bl mn-item library"
-          >
+          <NavLink to="/library" className="mn-inl-bl mn-item library">
             {({ isActive }) => {
               return (
                 <>
@@ -54,18 +46,10 @@ function Sidebar() {
           </NavLink>
         </div>
         <div style={{ marginTop: "25px" }}>
-          <Link
-            to="/create-playlist"
-            replace={true}
-            className="mn-inl-bl mn-item crt-pllst"
-          >
+          <Link to="/create-playlist" className="mn-inl-bl mn-item crt-pllst">
             Create Playlist
           </Link>
-          <Link
-            to="/liked-songs"
-            replace={true}
-            className="mn-inl-bl mn-item crt-pllst"
-          >
+          <Link to="/liked-songs" className="mn-inl-bl mn-item crt-pllst">
             Liked Songs
           </Link>
         </div>

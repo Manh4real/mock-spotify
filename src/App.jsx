@@ -20,7 +20,7 @@ function App() {
   const setPlayingSongInfo = (id, src, albumId) => {
     setPlayingSong({ id, src });
     setPlayingAlbumId(albumId);
-    console.log("setPlayingSongInfo");
+    console.log("set song info");
   };
 
   const contextValue = useMemo(

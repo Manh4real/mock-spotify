@@ -33,7 +33,7 @@ function Controller({ visible = true, renderAudio }) {
   const handleLoadedMetaData = (e) => {
     trackProgressRef.current.setSongVariables(audioRef.current);
 
-    console.log("handleLoadedMetadata");
+    console.log("audio loaded");
   };
 
   const handleTimeUpdate = (e) => {
@@ -42,7 +42,7 @@ function Controller({ visible = true, renderAudio }) {
   const handleAudioError = () => {
     setIsPlaying(false);
     setIsError(true);
-    console.log("handleAudioError");
+    console.log("Audio Error");
 
     alert("Can't play the song.");
   };
@@ -84,12 +84,12 @@ function Controller({ visible = true, renderAudio }) {
   //
   async function toPlaySong() {
     const song = audioRef.current;
-    console.log("toPlaySong");
+    console.log("play song...");
 
     try {
       await song.play();
     } catch (e) {
-      console.log("Something went wrong with audio.", e.message);
+      console.log("Something went wrong when playing song.", e.message);
       setIsPlaying(false);
     } finally {
     }
@@ -97,12 +97,12 @@ function Controller({ visible = true, renderAudio }) {
 
   async function toPauseSong() {
     const song = audioRef.current;
-    console.log("toPauseSong");
+    console.log("pause song...");
 
     try {
       await song.pause();
     } catch (e) {
-      console.log("Something went wrong with audio.", e.message);
+      console.log("Something went wrong when pausing song.", e.message);
       setIsPlaying(false);
     } finally {
     }
@@ -116,7 +116,7 @@ function Controller({ visible = true, renderAudio }) {
       const thisSongIndex = SONGS.findIndex(({ id }) => id === playingSong.id);
 
       if (thisSongIndex !== -1) {
-        console.log("currentIndex");
+        console.log("current song order: ", currentIndex);
         currentIndex = thisSongIndex;
       } else setPlayingSong({ id: "", src: "" });
     }
@@ -131,7 +131,7 @@ function Controller({ visible = true, renderAudio }) {
     if (isPlaying) toPlaySong();
     else if (!isPlaying) toPauseSong();
 
-    console.log("useEffect:", { isPlaying });
+    console.log({ isPlaying });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, playingSong.src]);
   //
