@@ -133,7 +133,7 @@ function Controller({ visible = true, renderAudio }) {
 
     console.log("useEffect:", { isPlaying });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying]);
+  }, [isPlaying, playingSong.src]);
   //
   useEffect(() => {
     const handleKeyUp = (e) => {
