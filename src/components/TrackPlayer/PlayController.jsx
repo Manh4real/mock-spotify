@@ -1,18 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { Pause, Play } from "icons";
-import { Player } from "App";
+import { useSelector } from "react-redux";
+import { getPlayingStatus } from "features/trackControllerSlice";
 
 function PlayController({ onPlay, onPause }, ref) {
-  const { isPlaying, setIsPlaying } = useContext(Player);
+  // Redux Toolkit
+  const isPlaying = useSelector(getPlayingStatus);
+  // const dispatch = useDispatch();
 
   const handleClick = () => {
     if (!isPlaying) {
       onPlay();
-      setIsPlaying(true);
+
+      // dispatch(play());
     } else {
       onPause();
-      setIsPlaying(false);
+
+      // dispatch(pause());
     }
   };
 

@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-
-// context
-import { Player } from "App";
 
 // icons
 import { Heart, Pause as PauseIcon, Play as PlayIcon, ThreeDots } from "icons";
 import ExplicitTag from "components/ExplicitTag";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getPlayingSong,
+  getPlayingStatus,
+  pause,
+  play,
+  setPlayingSongInfo,
+} from "features/trackControllerSlice";
 
 function PlaylistRow({
   explicit = false,
@@ -21,15 +26,24 @@ function PlaylistRow({
   imageSrc = `./images/cover${Math.ceil(Math.random() * 2)}.jpg`,
   i,
 }) {
-  const { isPlaying, playingSong, setIsPlaying, setPlayingSongInfo } =
-    useContext(Player);
+  // Redux Toolkit
+  const isPlaying = useSelector(getPlayingStatus);
+  const playingSong = useSelector(getPlayingSong);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (songId === playingSong.id) {
-      setIsPlaying((prev) => !prev);
+      if (isPlaying) dispatch(pause());
+      else dispatch(play());
     } else {
-      setPlayingSongInfo(songId, songUrl, albumId);
-      setIsPlaying(true);
+      dispatch(
+        setPlayingSongInfo({
+          id: songId,
+          url: songUrl,
+          albumId,
+        })
+      );
+      if (!isPlaying) dispatch(play());
     }
   };
 

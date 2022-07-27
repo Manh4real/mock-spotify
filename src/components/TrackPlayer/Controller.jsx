@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 // icons
 import { Next, Prev, Random, Repeat } from "icons";
@@ -11,16 +11,21 @@ import TrackProgress from "./TrackProgress";
 import { ALBUMS } from "constants";
 
 // context
-import { Player } from "App";
+import { useDispatch, useSelector } from "react-redux";
+import { pause, play, setPlayingSongInfo } from "features/trackControllerSlice";
 
 // variables
 const SONGS = ALBUMS[0].items;
 let currentIndex = 0;
 
 function Controller({ visible = true, renderAudio }) {
-  const { isPlaying, setIsPlaying, playingSong, setPlayingSongInfo } =
-    useContext(Player);
+  // redux toolkit
+  const { isPlaying, playingSong } = useSelector(
+    (state) => state.trackController
+  );
+  const dispatch = useDispatch();
 
+  // state
   const [isError, setIsError] = useState(false);
 
   const audioRef = useRef();
@@ -45,7 +50,8 @@ function Controller({ visible = true, renderAudio }) {
     trackProgressRef.current?.updateSongTime(audioRef.current);
   };
   const handleAudioError = () => {
-    setIsPlaying(false);
+    if (isPlaying) dispatch(pause());
+
     setIsError(true);
     console.log("Audio Error");
 
@@ -54,10 +60,14 @@ function Controller({ visible = true, renderAudio }) {
 
   //
   const handleAudioPlay = () => {
-    if (!isError) setIsPlaying(true);
+    if (!isError) {
+      console.log("Audio started to play");
+      if (!isPlaying) dispatch(play());
+    }
   };
   const handleAudioPause = () => {
-    setIsPlaying(false);
+    console.log("Audio started to pause");
+    if (isPlaying) dispatch(pause());
   };
   const handleAudioEnded = () => {
     trackProgressRef.current.init(audioRef.current);
@@ -69,52 +79,68 @@ function Controller({ visible = true, renderAudio }) {
     if (currentIndex >= SONGS.length - 1) {
       currentIndex = -1;
     }
-    setPlayingSongInfo(
-      SONGS[++currentIndex].id,
-      SONGS[currentIndex].url,
-      ALBUMS[0].id
+    dispatch(
+      setPlayingSongInfo({
+        id: SONGS[++currentIndex].id,
+        url: SONGS[currentIndex].url,
+        albumId: ALBUMS[0].id,
+      })
     );
+    dispatch(play());
 
     trackProgressRef.current.init(audioRef.current);
   }
   function backToPrevSong() {
     if (currentIndex < 1) currentIndex = 1;
 
-    setPlayingSongInfo(
-      SONGS[--currentIndex].id,
-      SONGS[currentIndex].url,
-      ALBUMS[0].id
+    dispatch(
+      setPlayingSongInfo({
+        id: SONGS[--currentIndex].id,
+        url: SONGS[currentIndex].url,
+        albumId: ALBUMS[0].id,
+      })
     );
+    dispatch(play());
 
     trackProgressRef.current.init(audioRef.current);
   }
 
   //
-  async function toPlaySong() {
-    const song = audioRef.current;
-    console.log("play song...");
+  const toPlaySong = useMemo(
+    () =>
+      async function () {
+        const song = audioRef.current;
 
-    try {
-      await song.play();
-    } catch (e) {
-      console.log("Something went wrong when playing song.", e.message);
-      setIsPlaying(false);
-    } finally {
-    }
-  }
+        try {
+          await song.play();
+          console.log("play song...");
+        } catch (e) {
+          console.log("Something went wrong when playing song.", e.message);
 
-  async function toPauseSong() {
-    const song = audioRef.current;
-    console.log("pause song...");
+          dispatch(pause());
+        } finally {
+        }
+      },
+    [dispatch]
+  );
 
-    try {
-      await song.pause();
-    } catch (e) {
-      console.log("Something went wrong when pausing song.", e.message);
-      setIsPlaying(false);
-    } finally {
-    }
-  }
+  const toPauseSong = useMemo(
+    () =>
+      async function () {
+        const song = audioRef.current;
+
+        try {
+          await song.pause();
+          console.log("pause song...");
+        } catch (e) {
+          console.log("Something went wrong when pausing song.", e.message);
+
+          dispatch(pause());
+        } finally {
+        }
+      },
+    [dispatch]
+  );
 
   //
   useEffect(() => {
@@ -126,10 +152,16 @@ function Controller({ visible = true, renderAudio }) {
         console.log("current song order: ", currentIndex);
         currentIndex = thisSongIndex;
       } else {
-        setPlayingSongInfo("", "", "");
+        dispatch(
+          setPlayingSongInfo({
+            id: "",
+            url: "",
+            albumId: "",
+          })
+        );
       }
     }
-  }, [playingSong.id, setPlayingSongInfo]);
+  }, [playingSong.id, dispatch]);
 
   //
   useEffect(() => {
@@ -141,8 +173,7 @@ function Controller({ visible = true, renderAudio }) {
     else if (!isPlaying) toPauseSong();
 
     console.log({ isPlaying });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying, playingSong.src]);
+  }, [isPlaying, toPlaySong, toPauseSong, playingSong.url]);
 
   //
   useEffect(() => {
@@ -169,14 +200,12 @@ function Controller({ visible = true, renderAudio }) {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying]);
+  }, [isPlaying, playingSong.id, toPauseSong, toPlaySong]);
 
   if (!visible)
     return renderAudio({
       ref: audioRef,
-      src: playingSong.src,
+      src: playingSong.url,
       onLoadedMetadata: handleLoadedMetaData,
       onTimeUpdate: handleTimeUpdate,
       onPlay: handleAudioPlay,
@@ -212,7 +241,7 @@ function Controller({ visible = true, renderAudio }) {
       />
       {renderAudio({
         ref: audioRef,
-        src: playingSong.src,
+        src: playingSong.url,
         onLoadedMetadata: handleLoadedMetaData,
         onTimeUpdate: handleTimeUpdate,
         onPlay: handleAudioPlay,

@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 
 // components
-import { Player } from "App";
 
 // icons
 import { Play as PlayIcon } from "icons";
@@ -9,19 +8,35 @@ import { Play as PlayIcon } from "icons";
 // constants
 import { ALBUMS } from "constants";
 
+// Redux Toolkit
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getPlayingAlbumId,
+  getPlayingStatus,
+  pause,
+  play,
+  setPlayingSongInfo,
+} from "features/trackControllerSlice";
+
 function AlbumPlayButton({ albumId }) {
-  const { isPlaying, setIsPlaying, setPlayingSongInfo, playingAlbumId } =
-    useContext(Player);
+  // Redux Toolkit
+  const playingAlbumId = useSelector(getPlayingAlbumId);
+  const isPlaying = useSelector(getPlayingStatus);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    if (playingAlbumId === albumId) setIsPlaying((prev) => !prev);
-    else if (albumId === ALBUMS[0].id) {
-      setPlayingSongInfo(
-        ALBUMS[0].items[0].id,
-        ALBUMS[0].items[0].url,
-        albumId
+    if (playingAlbumId === albumId) {
+      if (isPlaying) dispatch(pause());
+      else dispatch(play());
+    } else if (albumId === ALBUMS[0].id) {
+      dispatch(
+        setPlayingSongInfo({
+          id: ALBUMS[0].items[0].id,
+          url: ALBUMS[0].items[0].url,
+          albumId,
+        })
       );
-      setIsPlaying(true);
+      dispatch(play());
     }
   };
 

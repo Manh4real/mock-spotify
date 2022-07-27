@@ -3,6 +3,10 @@ import axios from "axios";
 const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const client_secret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 
+export const api = axios.create({
+  baseURL: "https://api.spotify.com/v1",
+});
+
 export const getToken = async () => {
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -19,10 +23,6 @@ export const getToken = async () => {
   const data = await res.json();
   return data.access_token;
 };
-
-export const api = axios.create({
-  baseURL: "https://api.spotify.com/v1",
-});
 
 export const getAlbum = async (albumId) => {
   const token = await getToken();

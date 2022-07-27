@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // context
-import { Player } from "App";
 
 // icons
 import { Heart } from "icons";
@@ -13,13 +13,17 @@ import Controller from "./Controller";
 // styles
 import "./TrackPlayer.scss";
 
+// Redux Toolkit
+import { getPlayingSong } from "features/trackControllerSlice";
+
 // constants
 import { ALBUMS } from "constants";
 
 const SONGS = ALBUMS[0].items;
 
 function TrackPlayer() {
-  const { playingSong } = useContext(Player);
+  // Redux Toolkit
+  const playingSong = useSelector(getPlayingSong);
 
   const song = SONGS.find(({ id }) => id === playingSong.id);
 
@@ -42,7 +46,9 @@ function TrackPlayer() {
       <div className="pln-sng_container">
         <div
           className="image"
-          style={{ backgroundImage: "url(../images/cover1.jpg)" }}
+          style={{
+            backgroundImage: `url(${song.image || "../images/cover1.jpg"})`,
+          }}
         ></div>
         <div className="sng-title-container">
           <Link to="/" className="sng-nme">
