@@ -24,6 +24,18 @@ export const getToken = async () => {
   return data.access_token;
 };
 
+export const getTrack = async (trackId) => {
+  const token = await getToken();
+
+  const result = await api.get("/tracks/" + trackId, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return result.data;
+};
+
 export const getAlbum = async (albumId) => {
   const token = await getToken();
 

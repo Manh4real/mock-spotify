@@ -26,6 +26,7 @@ function PlaylistTable() {
         albumName={song.album.albumName}
         artists={song.artists}
         duration={song.duration}
+        imageSrc={song.image}
         i={i}
       />
     );

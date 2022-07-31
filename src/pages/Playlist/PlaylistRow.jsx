@@ -23,7 +23,7 @@ function PlaylistRow({
   artists,
   songUrl,
   duration,
-  imageSrc = `./images/cover${Math.ceil(Math.random() * 2)}.jpg`,
+  imageSrc,
   i,
 }) {
   // Redux Toolkit
@@ -103,7 +103,7 @@ function PlaylistRow({
         </div>
       </div>
       <div className="snd-col alb-nme-ctn">
-        <Link to="/">{albumName}</Link>
+        <Link to={"/albums/" + albumId}>{albumName}</Link>
       </div>
       <div className="thrd-col drtn-fvrt-mre-ctn">
         <div
